@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -67,3 +72,62 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.Week {
+  display: flex;
+  width: 100vw;
+}
+
+.Day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  transition: background-color 0.25s;
+}
+
+.Day.active {
+  background-color: #646cff;
+  width: 100%;
+}
+
+.Day.minimised {
+  padding: 0.25em;
+}
+
+.Day.minimised .Hour-container {
+  display: none;
+}
+
+.Hour-container {
+  width: 100%;
+  min-height: 100px;
+}
+
+.Hour {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  transition: background-color 0.25s;
+}
+
+.FiveMinute {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #fff;
+}
+
+.min-5-block {
+  height: 100%;
+  background: white;
+  width: 100%;
+}
+
