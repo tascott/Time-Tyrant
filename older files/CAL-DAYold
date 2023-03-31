@@ -1,0 +1,43 @@
+import React from 'react';
+import GridLayout from 'react-grid-layout';
+// import './CalendarDay.css';
+
+const CalendarDay = ({ events }) => {
+  // Generate grid layout items (events)
+  const gridItems = events.map((event, index) => (
+    <div key={index} data-grid={event.layout} className="event">
+      {event.title}
+    </div>
+  ));
+
+  // Generate hour labels
+  const hourLabels = [...Array(18)].map((_, i) => (
+    <div key={`label-${i}`} className="hour-label">
+      {`${(i + 6) % 24}:00`}
+    </div>
+  ));
+
+  // Define layout for the calendar day grid
+  const layout = [
+    { i: 'day', x: 0, y: 0, w: 1, h: 18, static: true },
+  ];
+
+  return (
+    <div className="calendar-day">
+      <div className="hour-labels">{hourLabels}</div>
+      <GridLayout
+        className="layout"
+        layout={layout}
+        cols={4}
+        rowHeight={60}
+        width={200}
+        margin={[0, 0]}
+        isResizable={false}
+      >
+        {gridItems}
+      </GridLayout>
+    </div>
+  );
+};
+
+export default CalendarDay;

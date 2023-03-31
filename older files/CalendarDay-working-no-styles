@@ -1,0 +1,63 @@
+import React, { useState } from "react";
+import _ from "lodash";
+import RGL, { WidthProvider } from "react-grid-layout";
+
+const ReactGridLayout = WidthProvider(RGL);
+
+const CalendarDay = (props) => {
+  const defaultProps = {
+    className: "layout",
+    items: props.events.length,
+    cols: 12,
+    rowHeight: 30,
+    onLayoutChange: function () {},
+    // This turns off compaction so you can place items wherever.
+    // verticalCompact: false,
+    compactType: null,
+    // This turns off rearrangement so items will not be pushed arround.
+    preventCollision: true,
+  };
+
+  const combinedProps = { ...defaultProps, ...props };
+
+  const generateLayout = () => {
+    return _.map(new Array(combinedProps.events), function (item, i) {
+      const y = _.result(combinedProps, "y") || Math.ceil(Math.random() * 4) + 1;
+      return {
+        x: (i * 2) % 12,
+        y: Math.floor(i / 6) * y,
+        w: 2,
+        h: y,
+        i: i.toString(),
+      };
+    });
+  };
+
+  const [layout, setLayout] = useState(generateLayout());
+
+  const generateDOM = () => {
+    return props.items.map((event, i) => {
+      return (
+        <div key={i}>
+          <span className="text">{event.title}</span>
+        </div>
+      );
+    });
+  };
+
+  const onLayoutChange = (newLayout) => {
+    combinedProps.onLayoutChange(newLayout);
+  };
+
+  return (
+    <ReactGridLayout
+      layout={layout}
+      onLayoutChange={onLayoutChange}
+      {...combinedProps}
+    >
+      {generateDOM()}
+    </ReactGridLayout>
+  );
+};
+
+export default CalendarDay;
